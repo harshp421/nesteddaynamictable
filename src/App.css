@@ -1,38 +1,116 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.table-wrapper{
   display: flex;
   flex-direction: column;
+  align-items: baseline;
+  padding: 40px;
+  justify-content: center;
+  gap: 10px;
+}
+.table-top{
+  width: 100%;
+  display: flex;
+  padding: 0px 16px;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-btn-wrapper{
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+}
+.table-title{
+  text-transform: uppercase;
+  color: #122f41;
+  font-size: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.styledThead{
+  background: lightseagreen; 
+}
+.styledThead > p {
+  color: #ffffff;
+  font-size: 16px;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  
+}
+.styledCell{
+  display: flex;
+}
+.cell-p{
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+
+}
+.dialog-cont{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.accordian-title{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+ 
 }
 
-.App-link {
-  color: #61dafb;
+.MuiAccordionSummary-root{
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  justify-content: center;
+  gap: 16px;
+}
+.form-wrapper{
+  display: flex;
+  justify-content: center;
+  margin: 16px;
+}
+.form-btn{
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dialog-title{
+  position: relative;
+
+}
+.cancel-logo{
+  position: absolute;
+  right: 0;
+   top: 0px;
+
+}
+.type-form{
+  position: relative;
+}
+.type-field{
+  position: absolute;
+  width: 100%;
+
+
+}
+
+.cancel-type-icon{
+  position: absolute;
+  z-index: 0;
+  right: 10px;
+  top: 15px;
 }
