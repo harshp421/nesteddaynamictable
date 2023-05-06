@@ -1,118 +1,126 @@
-
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TextField,
-  } from '@mui/material';
-  import React, { useEffect, useState } from 'react';
-import { AddCircle, Cancel, Delete, ExpandMore } from '@mui/icons-material';
-import { v4 as uuid } from 'uuid';
-import { RowType } from '../utils/model.data';
-import Cell from './Cell';
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Snackbar,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { AddCircle, Cancel, Delete, ExpandMore } from "@mui/icons-material";
+import { v4 as uuid } from "uuid";
+import { RowType } from "../utils/model.data";
+import Cell from "./Cell";
 
 const Row = ({
-    row,
-    isEdit,
-    table,
-    tables,
-    setTables,
-    countValue,
-    setCountValue,
-  }: any) => {
+  row,
+  isEdit,
+  table,
+  tables,
+  setTables,
+  countValue,
+  setCountValue,
+}: any) => {
+  const [openAddCategory, setOpenAddCategory] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [dCategoryV, setDCategoryV] = useState("");
+  const [childRow, setChildRow] = useState<RowType[]>();
+  const unique_id = uuid();
+  const row_id = unique_id.slice(0, 8);
 
+  useEffect(() => {
+    const newChildRows = table.rows.filter((r: any) =>
+      row.childRow.includes(r.id)
+    );
+    setChildRow(newChildRows);
+  }, [row.childRow, table.rows]);
 
-    const [openAddCategory, setOpenAddCategory] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
-    const [dCategoryV, setDCategoryV] = useState('');
-    const [childRow, setChildRow] = useState<RowType[]>();
-    const unique_id = uuid();
-    const row_id = unique_id.slice(0, 8);
+  const handleCloseCategoryDialog = () => {
+    setDCategoryV("");
+    setOpenAddCategory(!openAddCategory);
+  };
 
-    useEffect(() => {
-        const newChildRows = table.rows.filter((r:any )=> row.childRow.includes(r.id));
-        setChildRow(newChildRows);
-      }, [row.childRow, table.rows]);
-    
-      const handleCloseCategoryDialog = () => {
-        setDCategoryV('');
-        setOpenAddCategory(!openAddCategory);
-      };
-    
-      const handleAddRow = () => {
-        const newRow = {
-          id: row_id,
-          title: dCategoryV,
-          rData: countValue,
-          parentId: row.id,
-          childRow: [],
-        };
-        const newChildRow = [...row.childRow, newRow.id];
-        const newParentRow = { ...row, childRow: newChildRow };
-        const updatedRows = table.rows.map((tRow :any)=> {
-          if (tRow.id === row.id) {
-            return { ...newParentRow };
-          } else {
-            return { ...tRow };
-          }
-        });
-        const newRows = [...updatedRows, newRow];
-        const newTables = tables.map((t:any) => {
-          if (t.id === table.id) {
-            return { ...table, rows: newRows };
-          } else {
-            return { ...t };
-          }
-        });
-        setTables(newTables);
-        console.log(tables);
-        handleCloseCategoryDialog();
-      };
-      const handleDeleteCategory = () => {
-        if (row.parentId !== '') {
-          const newRows = table.rows.map((r:any) => {
-            if (r.id === row.parentId) {
-              const newChildRow = r.childRow.filter((cId:any) => cId !== row.id);
-              const newRow = { ...r, childRow: newChildRow };
-              return newRow;
-            } else return { ...r };
-          });
-          const newTable = tables.map((t:any) => {
-            if (t.id === table.id) {
-              return { ...table, rows: newRows };
-            } else {
-              return { ...t };
-            }
-          });
-          setTables(newTable);
+  const handleAddRow = () => {
+    if (dCategoryV === "") {
+      alert("Please select a category");
+      return;
+    }
+
+    const newRow = {
+      id: row_id,
+      title: dCategoryV,
+      rData: countValue,
+      parentId: row.id,
+      childRow: [],
+    };
+    const newChildRow = [...row.childRow, newRow.id];
+    const newParentRow = { ...row, childRow: newChildRow };
+    const updatedRows = table.rows.map((tRow: any) => {
+      if (tRow.id === row.id) {
+        return { ...newParentRow };
+      } else {
+        return { ...tRow };
+      }
+    });
+    const newRows = [...updatedRows, newRow];
+    const newTables = tables.map((t: any) => {
+      if (t.id === table.id) {
+        return { ...table, rows: newRows };
+      } else {
+        return { ...t };
+      }
+    });
+    setTables(newTables);
+    console.log(tables, "table with curent data", countValue);
+    handleCloseCategoryDialog();
+  };
+
+  const handleDeleteCategory = () => {
+    if (row.parentId !== "") {
+      const newRows = table.rows.map((r: any) => {
+        if (r.id === row.parentId) {
+          const newChildRow = r.childRow.filter((cId: any) => cId !== row.id);
+          const newRow = { ...r, childRow: newChildRow };
+          return newRow;
+        } else return { ...r };
+      });
+      const newTable = tables.map((t: any) => {
+        if (t.id === table.id) {
+          return { ...table, rows: newRows };
         } else {
-          const newRows = table.rows.filter((r:any) => r.id !== row.id);
-          const newTable = tables.map((t:any) => {
-            if (t.id === table.id) {
-              return { ...table, rows: newRows };
-            } else {
-              return { ...t };
-            }
-          });
-          setTables(newTable);
+          return { ...t };
         }
-        console.log(tables);
-      };
+      });
+      setTables(newTable);
+    } else {
+      const newRows = table.rows.filter((r: any) => r.id !== row.id);
+      const newTable = tables.map((t: any) => {
+        if (t.id === table.id) {
+          return { ...table, rows: newRows };
+        } else {
+          return { ...t };
+        }
+      });
+      setTables(newTable);
+    }
+    // console.log(tables);
+  };
 
   return (
-   <>
-    {row.childRow.length === 0 && (
+    <>
+      {row.childRow.length === 0 && (
         <TableRow key={row.id}>
-          <TableCell sx={{ paddingX: '36px',paddingY:0.5 }}>
+          <TableCell sx={{ paddingX: "36px", paddingY: 0.5 }}>
             <p className="cell-p">
               {isEdit && (
                 <Delete
@@ -128,7 +136,7 @@ const Row = ({
               )}
             </p>
           </TableCell>
-          {row.rData.map((obj:any, index:number) => (
+          {row.rData.map((obj: any, index: number) => (
             <Cell
               key={index}
               data={obj}
@@ -168,7 +176,7 @@ const Row = ({
                           )}
                         </p>
                       </TableCell>
-                      {row.rData.map((obj:any, index:number) => (
+                      {row.rData.map((obj: any, index: number) => (
                         <Cell
                           key={index}
                           data={obj}
@@ -189,7 +197,7 @@ const Row = ({
                 <Table>
                   <TableBody>
                     {childRow?.length !== 0 &&
-                      childRow?.map(cr => (
+                      childRow?.map((cr) => (
                         <Row
                           key={cr.id}
                           row={cr}
@@ -213,9 +221,11 @@ const Row = ({
         open={openAddCategory}
         // TransitionComponent={Transition}
         keepMounted
+        fullWidth
+        maxWidth="sm"
       >
         <DialogTitle className="dialog-title">
-          <h4>Sub Category Name</h4>
+          <h4 style={{ margin: "0" }}>Sub Category Name</h4>
           <Cancel
             color="error"
             onClick={handleCloseCategoryDialog}
@@ -231,27 +241,31 @@ const Row = ({
             required
             margin="dense"
             value={dCategoryV}
-            onChange={e => setDCategoryV(e.target.value)}
+            onChange={(e) => setDCategoryV(e.target.value)}
           />
-          <Button
-            color="success"
-            variant="outlined"
-            onClick={() => handleAddRow()}
-          >
-            Save
-          </Button>
-          <Button
-            color="warning"
-            variant="outlined"
-            onClick={handleCloseCategoryDialog}
-          >
-            Cancel
-          </Button>
+          <DialogActions>
+            <div className="form-btn">
+              <Button
+                color="success"
+                variant="outlined"
+                onClick={() => handleAddRow()}
+              >
+                Save
+              </Button>
+              <Button
+                color="warning"
+                variant="outlined"
+                onClick={handleCloseCategoryDialog}
+              >
+                Cancel
+              </Button>
+            </div>
+          </DialogActions>
         </DialogContent>
       </Dialog>
-      <Dialog open={openDelete}>
+      <Dialog open={openDelete} maxWidth="sm" fullWidth>
         <DialogTitle className="dialog-title">
-          <h4>DELETE</h4>
+          <h4 style={{ margin: 0 }}>DELETE</h4>
           <Cancel
             color="error"
             onClick={() => setOpenDelete(!openDelete)}
@@ -259,26 +273,33 @@ const Row = ({
           />
         </DialogTitle>
         <DialogContent className="dialog-cont">
-          <h4>Are you sure you want to 'DELETE' this?</h4>
-
-          <Button
-            color="success"
-            variant="outlined"
-            onClick={() => handleDeleteCategory()}
-          >
-            Yes
-          </Button>
-          <Button
-            color="warning"
-            variant="outlined"
-            onClick={() => setOpenDelete(!openDelete)}
-          >
-            No
-          </Button>
+          <DialogTitle className="dialog-title">
+            <h4 style={{ margin: 0 }}>
+              Are you sure you want to 'DELETE' this?
+            </h4>
+          </DialogTitle>
+          <DialogActions>
+            <div className="form-btn">
+              <Button
+                color="success"
+                variant="outlined"
+                onClick={() => handleDeleteCategory()}
+              >
+                Yes
+              </Button>
+              <Button
+                color="warning"
+                variant="outlined"
+                onClick={() => setOpenDelete(!openDelete)}
+              >
+                No
+              </Button>
+            </div>
+          </DialogActions>
         </DialogContent>
       </Dialog>
-   </>
-  )
-}
+    </>
+  );
+};
 
-export default Row
+export default Row;
