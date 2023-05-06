@@ -14,7 +14,7 @@ import Nestedtable from "./Nestedtable";
 
 import { Cancel } from "@mui/icons-material";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
-
+import Wrapper from "./wrapper/Wrapper";
 
 const CustomeTable = () => {
   const [tables, setTables] = useState<TablePropType[]>([]);
@@ -68,7 +68,7 @@ const CustomeTable = () => {
   };
   return (
     <>
-      
+      <Wrapper class="form-wrapper">
         <Button variant="contained" color="success" onClick={handleIsCreate}>
           Create Table
         </Button>
@@ -161,7 +161,7 @@ const CustomeTable = () => {
             </div>
           </DialogActions>
         </Dialog>
-      
+      </Wrapper>
 
       {tables.length > 0 &&
         tables.map((table) => (

@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
-import CustomeTable from './Components/CustomeTable';
+import "./App.css";
+import CustomeTable from "./Components/CustomeTable";
 
 function App() {
-   return(
+  return (
     <>
-    <h1>Daynamic Nested Table</h1>
-    <CustomeTable/>
-    
+      <CustomeTable />
     </>
-   )
+  );
 }
 
 export default App;

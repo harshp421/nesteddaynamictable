@@ -59,7 +59,13 @@ const Row = ({
     const newRow = {
       id: row_id,
       title: dCategoryV,
-      rData: countValue,
+      rData: table.col.map((col: any) => {
+        const newObj = {
+          type: col,
+          value: 0,
+        };
+        return newObj;
+      }),
       parentId: row.id,
       childRow: [],
     };

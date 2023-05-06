@@ -1,12 +1,14 @@
-.table-wrapper{
+.table-wrapper {
   display: flex;
   flex-direction: column;
   align-items: baseline;
   padding: 40px;
   justify-content: center;
   gap: 10px;
+
 }
-.table-top{
+
+.table-top {
   width: 100%;
   display: flex;
   padding: 0px 16px;
@@ -14,34 +16,40 @@
   justify-content: space-between;
   align-items: center;
 }
-.top-btn-wrapper{
+
+.top-btn-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.table-title{
+
+.table-title {
   text-transform: uppercase;
   color: #122f41;
   font-size: 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.styledThead{
-  background: lightseagreen; 
+
+.styledThead {
+  background: lightseagreen;
 }
-.styledThead > p {
+
+.styledThead>p {
   color: #ffffff;
   font-size: 16px;
   text-transform: capitalize;
   display: flex;
   align-items: center;
   gap: 5px;
-  
+
 }
-.styledCell{
+
+.styledCell {
   display: flex;
 }
-.cell-p{
+
+.cell-p {
   width: 25%;
   display: flex;
   align-items: center;
@@ -49,66 +57,76 @@
   gap: 5px;
 
 }
-.dialog-cont{
+
+.dialog-cont {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.accordian-title{
+
+.accordian-title {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center; 
- 
+  justify-content: center;
+
 }
 
-.MuiAccordionSummary-root{
+.MuiAccordionSummary-root {
   display: block;
 }
 
 
 
-form{
+form {
   display: flex;
   flex-direction: column;
-  padding: 8px;
-  justify-content: center;
+  padding: 8px 0;
+  justify-content: flex-end;
   gap: 16px;
+
 }
-.form-wrapper{
+
+.form-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 16px;
 }
-.form-btn{
+
+.form-btn {
   position: sticky;
   bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+
 }
-.dialog-title{
+
+.dialog-title {
   position: relative;
 
 }
-.cancel-logo{
+
+.cancel-logo {
   position: absolute;
-  right: 0;
-   top: 0px;
-
+  right: 12px;
+  top: 12px;
+  font-size: 14px;
 }
-.type-form{
+
+.type-form {
   position: relative;
 }
-.type-field{
+
+.type-field {
   position: absolute;
   width: 100%;
 
 
 }
 
-.cancel-type-icon{
+.cancel-type-icon {
   position: absolute;
   z-index: 0;
   right: 10px;

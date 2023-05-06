@@ -21,7 +21,7 @@ import { v4 as uuid } from "uuid";
 import { RowData, TablePropType } from "../utils/model.data";
 
 import Row from "./Row";
-
+import Wrapper from "./wrapper/Wrapper";
 
 const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
   // for edit button
@@ -39,18 +39,18 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
 
   /** in first  render of this component this called   */
   /** if some error might be  hear */
-  useEffect(() => {
-    const newCount = table.col.map((col: any) => {
-      const newObj = {
-        type: col,
-        value: 0,
-      };
-      return newObj;
-    });
-    console.log("colled aftre delete");
+  // useEffect(() => {
+  // const newCount = table.col.map((col: any) => {
+  //   const newObj = {
+  //     type: col,
+  //     value: 0,
+  //   };
+  //   return newObj;
+  // });
+  //   console.log("colled aftre delete");
 
-    setCountValue(newCount);
-  }, [table.col]);
+  //   setCountValue(newCount);
+  // }, [table.col]);
 
   const handleIsEdit = () => {
     console.log("colled after delete in edit");
@@ -121,7 +121,13 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
     const newRow = {
       id: row_id,
       title: categoryV,
-      rData: countValue,
+      rData: table.col.map((col: any) => {
+        const newObj = {
+          type: col,
+          value: 0,
+        };
+        return newObj;
+      }),
       parentId: "",
       childRow: [],
     };
@@ -138,9 +144,10 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
     handleCancelCategoryAdd();
   };
 
-  
+ 
   const handleDeleteType = useCallback(
     (col: string) => {
+      let coldata = col;
       const newType = table.col.filter((c: any) => c !== col);
       const newRows = table.rows.map((r: any) => {
         const newRData = r.rData.filter((c: any) => c.type !== col);
@@ -161,6 +168,8 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
       console.log(newTable, "new table");
 
       setTables(newTable);
+
+      //deleteagain(coldata);
     },
     [table, tables, setTables]
   );
@@ -168,7 +177,7 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
   console.log(table, "tables");
   return (
     <>
-      
+      <Wrapper class="table-wrapper">
         <div className="table-top">
           <h3 className="table-title">{table.tName}</h3>
           <div className="top-btn-wrapper">
@@ -348,7 +357,7 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
             </DialogActions>
           </DialogContent>
         </Dialog>
-      
+      </Wrapper>
     </>
   );
 });
