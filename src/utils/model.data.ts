@@ -29,4 +29,5 @@ export interface MyRowCellProps extends MyTableProps {
   data: RowData;
   row: RowType;
   index: number;
+ 
 }

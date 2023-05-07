@@ -30,6 +30,7 @@ const Row = ({
   setTables,
   countValue,
   setCountValue,
+  
 }: any) => {
   const [openAddCategory, setOpenAddCategory] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -152,6 +153,7 @@ const Row = ({
               tables={tables}
               setTables={setTables}
               isEdit={isEdit}
+             
             />
           ))}
         </TableRow>
@@ -190,8 +192,9 @@ const Row = ({
                           index={index}
                           table={table}
                           tables={tables}
-                          setTables={setTables}
                           isEdit={isEdit}
+                          setTables={setTables}
+                        
                         />
                       ))}
                     </TableRow>

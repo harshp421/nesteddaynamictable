@@ -33,13 +33,14 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
   const [currentTable, setCurrentTable] = useState<TablePropType>();
   const [addCategory, setAddCategory] = useState(false);
   const [countValue, setCountValue] = useState<RowData[]>([]);
+  // const [countdemoValue, setCountdemoValue] = useState<RowData[]>([]);
 
   const unique_id = uuid();
   const row_id = unique_id.slice(0, 8);
 
   /** in first  render of this component this called   */
   /** if some error might be  hear */
-  // useEffect(() => {
+  //  useEffect(() => {
   // const newCount = table.col.map((col: any) => {
   //   const newObj = {
   //     type: col,
@@ -49,7 +50,7 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
   // });
   //   console.log("colled aftre delete");
 
-  //   setCountValue(newCount);
+  //   setCountdemoValue(newCount);
   // }, [table.col]);
 
   const handleIsEdit = () => {
@@ -253,6 +254,7 @@ const Nestedtable = React.memo(({ table, tables, setTables }: any) => {
                         isEdit={isEdit}
                         countValue={countValue}
                         setCountValue={setCountValue}
+                      
                       />
                     );
                   }
